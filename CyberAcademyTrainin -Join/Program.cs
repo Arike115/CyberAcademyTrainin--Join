@@ -11,19 +11,47 @@ namespace CyberAcademyTrainin__Join
             var allstudent = Student.GetClasses();
             var teacher = Standard.Getstandard();
 
+            //left outer join
+            //querysyntax
+            var datas = from d in teacher
+                        join c in allstudent
+                        on d.id equals c.Standard into groupedstudent
+                        from g in groupedstudent.DefaultIfEmpty()
+                        select new
+                        {
+                            d.id,
+                            d.ClassTeacher,
+                            classstudent = g == null ? "no student" : g.Name,
+                            classnumber = g == null ? 0 : g.RollNo
+                        };
+
+            foreach (var item in datas)
+            {
+                Console.WriteLine($"name:{item.ClassTeacher}: " +
+                    $"id:{item.id} RollNumber:{item.classnumber}: classname:{item.classstudent}");
+                //foreach (var itempro in item.groupedstudent)
+                //{
+                //    Console.WriteLine($" -------{itempro}");
+                //}
+            }
+
+            Console.WriteLine($"*********************************");
+
+
             //GroupJoin
             //Query syntax
             var data = from d in teacher
                        join c in allstudent
-                       on d.id equals c.Standard into groupedteacher
+                       on d.id equals c.Standard into groupedstudent
                        select new
                        {
                            d.id,
                            d.ClassTeacher,
-                           groupedteacher
+                           groupedstudent
                        };
 
-            var newdata = allstudent.Join(teacher,
+            //extension method based syntax
+            var newdata = allstudent.GroupJoin(teacher,
                                  b => b.Standard,
                                  x => x.id, (bt, groupedteacher) => new
                                  {
@@ -33,10 +61,11 @@ namespace CyberAcademyTrainin__Join
                                      groupedteacher
 
                                  });
+
             foreach (var item in data)
             {
                 Console.WriteLine($"name:{item.ClassTeacher}: id:{item.id}");
-                foreach (var itempro in item.groupedteacher)
+                foreach (var itempro in item.groupedstudent)
                 {
                     Console.WriteLine($" -------{itempro.Name} ------{itempro.RollNo}");
                 }

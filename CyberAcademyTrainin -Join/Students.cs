@@ -22,7 +22,7 @@ namespace CyberAcademyTrainin__Join
                new Student{RollNo = 104, Name = "Ram", Gender = Gender.Male, Standard = 8},
                new Student{RollNo = 105, Name = "Kate", Gender = Gender.Female, Standard = 6},
                new Student{RollNo = 106, Name = "John", Gender = Gender.Male, Standard = 6},
-               new Student{RollNo = 107, Name = "Ema", Gender = Gender.Female, Standard = 6},
+               new Student{Name = "Ema", Gender = Gender.Female, Standard = 6},
                new Student{RollNo = 108, Name = "Ravi", Gender = Gender.Male}
             };
 
